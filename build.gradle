@@ -24,8 +24,11 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
     implementation 'com.h2database:h2'
 
+    //Security
+    testImplementation 'org.springframework.security:spring-security-test'
+
     // Lombok
-    implementation group: 'org.projectlombok', name: 'lombok', version: project.lombok_version
+    implementation group: 'orgA.projectlombok', name: 'lombok', version: project.lombok_version
     implementation group: 'junit', name: 'junit', version: project.junit_version
     annotationProcessor group: 'org.projectlombok', name: 'lombok', version: project.lombok_version
 
