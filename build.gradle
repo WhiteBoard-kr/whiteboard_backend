@@ -26,6 +26,7 @@ dependencies {
 
     //Security
     testImplementation 'org.springframework.security:spring-security-test'
+    implementation 'org.springframework.boot:spring-boot-starter-security'
 
     // Lombok
     implementation group: 'orgA.projectlombok', name: 'lombok', version: project.lombok_version
