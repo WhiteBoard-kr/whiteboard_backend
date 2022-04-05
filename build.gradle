@@ -24,6 +24,9 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
     implementation 'com.h2database:h2'
 
+    //JWT
+    implementation 'io.jsonwebtoken:jjwt:0.9.1'
+
     //Security
     testImplementation 'org.springframework.security:spring-security-test'
     implementation 'org.springframework.boot:spring-boot-starter-security'
@@ -33,7 +36,7 @@ dependencies {
     implementation group: 'junit', name: 'junit', version: project.junit_version
     annotationProcessor group: 'org.projectlombok', name: 'lombok', version: project.lombok_version
 
-    // For tests
+    // Test
     implementation group: 'org.springframework.boot', name: 'spring-boot-starter-test', version: project.startertest_version
 }
 
