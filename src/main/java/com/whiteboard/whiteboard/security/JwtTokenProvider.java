@@ -13,4 +13,9 @@ public class JwtTokenProvider {
     //암호화 키 환경변수로 저장
     @Value("${jwt.secret}")
     private String secretKey;
+
+    //토큰 유효기간
+    private long tokenValidTime = 30 * 60 * 1000L;
+
+    private final UserDetailsService userDetailsService;
 }
