@@ -1,7 +1,9 @@
 package com.whiteboard.whiteboard.security;
 
-import io.jsonwebtoken.*;
-import lombok.Data;
+import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.Jws;
+import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.SignatureAlgorithm;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -21,14 +23,14 @@ import java.util.List;
 @Component
 public class JwtTokenProvider {
 
+    private final UserDetailsService userDetailsService;
+
     //암호화 키 환경변수로 저장
     @Value("${jwt.secret}")
     private String secretKey;
 
     //토큰 유효기간
-    private long tokenValidTime = 30 * 60 * 1000L;
-
-    private final UserDetailsService userDetailsService;
+    private final long tokenValidTime = 30 * 60 * 1000L;
 
     //초기화
     //암호화 키 Base64 인코딩
@@ -56,6 +58,7 @@ public class JwtTokenProvider {
                 .compact();
     }
 
+
     //JWT에서 회원 정보 추출
     public String getUserPk(String token) {
         return Jwts.parser().setSigningKey(secretKey).parseClaimsJws(token).getBody().getSubject();
@@ -69,15 +72,15 @@ public class JwtTokenProvider {
 
     //http 요청 해더에서 X-AUTH-TOKEN 조회
     public String resolveToken(HttpServletRequest request) {
-        return request.getHeader("X-AUTH-TOKEN");
+        return request.getHeader("Authorization");
     }
-    
+
     //토큰 유효성 확인
     //유효하다면 토큰 만료 일자 확인
     public boolean validateToken(String jwtToken) {
         try {
-            Jws<Claims> claims = Jwts.parser().setSigningKey(secretKey).parseClaimsJws(jwtToken);
-            return !claims.getBody().getExpiration().before(new Date());
+            Jwts.parser().setSigningKey(secretKey).parseClaimsJws(jwtToken);
+            return true;
         } catch (Exception e) {
             return false;
         }
