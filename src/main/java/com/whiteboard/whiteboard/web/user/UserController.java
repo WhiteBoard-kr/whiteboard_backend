@@ -10,9 +10,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
@@ -34,7 +32,7 @@ public class UserController {
     }
 
     @PostMapping("/user/login")
-    public ArrayList<String> login(@RequestBody LoginRequest userRequest) {
+    public Map login(@RequestBody LoginRequest userRequest) {
         User member = userRepository.findByName(userRequest.getName())
                 .orElseThrow(() -> new IllegalArgumentException("Account Not Found"));
 
@@ -42,13 +40,15 @@ public class UserController {
             throw new IllegalArgumentException("Wrong Password");
         }
 
-        return new ArrayList<>(
-                Arrays.asList(
-                        jwtTokenProvider.createToken(
-                                member.getId().toString(),
-                                member.getRoles().stream().map(roleType -> roleType.toString()).collect(Collectors.toList())),
-                        jwtTokenProvider.createRefreshToken(member.getId().toString())
-                )
+        Map result = new HashMap<String, String>();
+        result.put("access_token", jwtTokenProvider.createToken(
+                member.getId().toString(),
+                member.getRoles().stream().map(roleType -> roleType.toString()).collect(Collectors.toList()))
         );
+        result.put("refresh_token", jwtTokenProvider.createRefreshToken(
+                member.getId().toString())
+        );
+
+        return result;
     }
 }
