@@ -32,14 +32,15 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-security'
 
     // Lombok
-    implementation group: 'orgA.projectlombok', name: 'lombok', version: project.lombok_version
-    implementation group: 'junit', name: 'junit', version: project.junit_version
+    implementation group: 'org.projectlombok', name: 'lombok', version: project.lombok_version
     annotationProcessor group: 'org.projectlombok', name: 'lombok', version: project.lombok_version
 
     // Test
-    implementation group: 'org.springframework.boot', name: 'spring-boot-starter-test', version: project.startertest_version
+    testImplementation('org.springframework.boot:spring-boot-starter-test:' + project.startertest_version) {
+        exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
+    }
 }
 
-tasks.named('test') {
+tasks.test {
     useJUnitPlatform()
 }
