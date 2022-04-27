@@ -1,7 +1,6 @@
 package com.whiteboard.whiteboard.security;
 
 import io.jsonwebtoken.Claims;
-import io.jsonwebtoken.Jws;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import lombok.RequiredArgsConstructor;
@@ -30,7 +29,10 @@ public class JwtTokenProvider {
     private String secretKey;
 
     //토큰 유효기간
+    //Access Token 30분
     private final long tokenValidTime = 30 * 60 * 1000L;
+    //Refresh Token 7일
+    private final long refreshTokenValidTime = 7 * 24 * 60 * 60 * 1000L;
 
     //초기화
     //암호화 키 Base64 인코딩
@@ -39,7 +41,7 @@ public class JwtTokenProvider {
         secretKey = Base64.getEncoder().encodeToString(secretKey.getBytes());
     }
 
-    //JWT 생성
+    //JWT (Access Token) 생성
     //클레임 포함 (클라이언트 정보)
     public String createToken(String userPk, List<String> roles) {
         Claims claims = Jwts.claims().setSubject(userPk);
@@ -53,6 +55,19 @@ public class JwtTokenProvider {
                 .setIssuedAt(now)
                 //토큰 만료 시간
                 .setExpiration(new Date(now.getTime() + tokenValidTime))
+                //HS256으로 암호화
+                .signWith(SignatureAlgorithm.HS256, secretKey)
+                .compact();
+    }
+
+    //Refersh Token 생성
+    public String createRefreshToken(String id) {
+        Date now = new Date();
+        return  Jwts.builder()
+                //토큰 발행 시간
+                .setIssuedAt(now)
+                //토큰 만료 시간
+                .setExpiration(new Date(now.getTime() + refreshTokenValidTime))
                 //HS256으로 암호화
                 .signWith(SignatureAlgorithm.HS256, secretKey)
                 .compact();
