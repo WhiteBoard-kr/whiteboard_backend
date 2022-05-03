@@ -37,7 +37,9 @@ public class UserController {
                 .orElseThrow(() -> new IllegalArgumentException("Account Not Found"));
 
         if (!passwordEncoder.matches(userRequest.getPassword(), member.getPassword())) {
-            throw new IllegalArgumentException("Wrong Password");
+            result.put("message","failed");
+            result.put("status_code","400");
+            return result;
         }
 
         Map result = new HashMap<String, String>();
