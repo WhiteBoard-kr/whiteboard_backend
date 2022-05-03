@@ -33,6 +33,8 @@ public class UserController {
 
     @PostMapping("/user/login")
     public Map login(@RequestBody LoginRequest userRequest) {
+        Map result = new HashMap<String, String>();
+
         User member = userRepository.findByName(userRequest.getName())
                 .orElseThrow(() -> new IllegalArgumentException("Account Not Found"));
 
@@ -42,12 +44,13 @@ public class UserController {
             return result;
         }
 
-        Map result = new HashMap<String, String>();
-        result.put("access_token", jwtTokenProvider.createToken(
+        result.put("message","succeed");
+
+        result.put("access_token",jwtTokenProvider.createToken(
                 member.getId().toString(),
                 member.getRoles().stream().map(roleType -> roleType.toString()).collect(Collectors.toList()))
         );
-        result.put("refresh_token", jwtTokenProvider.createRefreshToken(
+        result.put("refresh_token",jwtTokenProvider.createRefreshToken(
                 member.getId().toString())
         );
 
