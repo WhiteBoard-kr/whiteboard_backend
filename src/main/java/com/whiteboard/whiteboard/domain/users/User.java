@@ -7,11 +7,12 @@ import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
+@Entity
+@Table(name = "USER")
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-@Entity
 public class User {
 
     @Id
