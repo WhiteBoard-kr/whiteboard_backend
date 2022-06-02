@@ -39,7 +39,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeHttpRequests()
                 //Ant 스타일 와일드카드
                 .antMatchers("/user").permitAll()
-                .antMatchers("/photo").hasRole(RoleType.ADMIN.toString())
+                //.antMatchers("/photo").hasRole(RoleType.ADMIN.toString())
+                .antMatchers("/photo").permitAll()
                 .and()
                 .addFilterBefore(new JwtAuthenticationFilter(jwtTokenProvider),
                         UsernamePasswordAuthenticationFilter.class);
