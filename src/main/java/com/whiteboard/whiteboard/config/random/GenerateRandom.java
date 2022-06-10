@@ -10,7 +10,7 @@ import java.util.Random;
 @Setter
 @Component
 public class GenerateRandom {
-    static int rand = 0;
+    static int rand;
 
     public int randomId() {
         Random random = new Random();
@@ -18,8 +18,4 @@ public class GenerateRandom {
         return randNum;
     }
 
-    //Test Method
-    public int addNum(int num1) {
-        return num1 + 1;
-    }
 }
