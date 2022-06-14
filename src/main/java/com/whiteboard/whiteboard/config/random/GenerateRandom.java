@@ -18,6 +18,7 @@ public class GenerateRandom {
     }
     public int[] randomList(int amount) {
         int[] idList = new int[amount];
+
         for (int i = 0; i < idList.length; i++) {
             idList[i] = randomId();
         }
