@@ -1,6 +1,7 @@
 package com.whiteboard.whiteboard.web.user;
 
 import com.whiteboard.whiteboard.config.random.GenerateRandom;
+import com.whiteboard.whiteboard.config.random.json.JsonStatus;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -13,18 +14,16 @@ public class PhotoController {
 
     private final GenerateRandom generateRandom;
     @GetMapping("/photo/{number_of_photos}")
-    public Map photo(@PathVariable("number_of_photos") int number_of_photos) {
-        Map result = new HashMap<String, String>();
+    public Object photo(@PathVariable("number_of_photos") int number_of_photos) {
+        JsonStatus jsonStatus = new JsonStatus();
 
-        result.put("ID", "id");
-        result.put("PW", "pw");
         //맵을 두 개 둬서 하나는 인트 배열
         //이따 해봐 준혁 화이팅!
-        if (number_of_photos > 10000) {
-            result.put("message", "failed");
-            result.put("satus_code", "400");
+        if (number_of_photos >= 10000) {
+            jsonStatus.status_code = "400";
+            jsonStatus.message = "Too Many Photos Required";
 
-            return result;
+            return jsonStatus;
         }
         int[] randList = generateRandom.randomList(number_of_photos);
         String randStr = "";
@@ -36,9 +35,9 @@ public class PhotoController {
                 randStr = randStr + ", " + randList[i];
         }
 
-        result.put("photo_id", randStr);
-        result.put("status_code", "200");
-        return result;
+        jsonStatus.status_code = "200";
+        jsonStatus.message = "Success";
+        return jsonStatus;
     }
 
     @GetMapping("/photo/liked")
