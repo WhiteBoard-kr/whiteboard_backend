@@ -11,6 +11,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @RunWith(SpringRunner.class)
@@ -27,10 +29,22 @@ public class RandomTest {
 
     @Test
     public void randomTest() {
-        System.out.println("- - - - - - - - - - - - - - -");
+        System.out.println("- - - - RANDOM - ID - - - -");
         int rand = generateRandom.randomId();
         System.out.println(generateRandom.randomId());
         assertTrue(rand >= 1000 && rand <= 100097);
+    }
+
+    @Test
+    public void randomListTest() {
+        System.out.println("- - - - RANDOM - LIST - - - -");
+        int photo_amount = 10;
+        int[] randList = generateRandom.randomList(photo_amount);
+        for (int i = 0; i < randList.length; i++) {
+            System.out.println(randList[i]);
+        }
+        assertTrue(photo_amount == randList.length);
+
     }
 
     @AfterEach
