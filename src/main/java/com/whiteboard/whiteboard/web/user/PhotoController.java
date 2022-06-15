@@ -22,12 +22,20 @@ public class PhotoController {
             return jsonTransducer;
         }
         int[] randList = generateRandom.randomList(number_of_photos);
-
         String randStr = "";
+
+        for (int i = 0; i < randList.length; i++) {
+            if (i == 0)
+                randStr = randStr + randList[0];
+
+            else
+                randStr = randStr + ", " + randList[i];
+        }
 
         jsonTransducer.status_code = "200";
         jsonTransducer.message = "Success";
         jsonTransducer.photo_id = randStr;
+        jsonTransducer.number_of_photos = Integer.toString(number_of_photos);
         return jsonTransducer;
     }
 
