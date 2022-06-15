@@ -12,4 +12,5 @@ public class JsonTransducer {
     public String message;
     public String status_code;
     public String photo_id;
+    public String number_of_photos;
 }
