@@ -12,6 +12,7 @@ public class PhotoController {
     private final GenerateRandom generateRandom;
 
     @GetMapping("/photo/{number_of_photos}")
+    @ResponseBody
     public Object photo(@PathVariable("number_of_photos") int number_of_photos) {
         JsonTransducer jsonTransducer = new JsonTransducer();
 
