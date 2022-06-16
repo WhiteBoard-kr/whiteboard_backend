@@ -2,6 +2,7 @@ package com.whiteboard.whiteboard.web;
 
 import com.whiteboard.whiteboard.web.user.PhotoController;
 import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -18,5 +19,9 @@ public class PhotoControllerTest {
     @Autowired
     private PhotoController photoController;
 
+    @BeforeEach
+    public void beforeEach() {
+        System.out.println("- - - - BEFORE - TEST - - - -");
+    }
     @Test
 }
