@@ -49,5 +49,4 @@ public class PhotoController {
     public String like_photo() {
         return "LIKE PHOTO";
     }
-
 }
