@@ -1,0 +1,4 @@
+jwt:
+    secret: 1357
+
+api_key: Bearer 563492ad6f917000010000011687caae89ad423abb7f90fdd154627d

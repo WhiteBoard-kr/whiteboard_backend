@@ -41,6 +41,10 @@ dependencies {
     testImplementation('org.springframework.boot:spring-boot-starter-test:' + project.startertest_version) {
         exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
     }
+
+    //OkHttp
+    implementation group: 'com.squareup.okhttp', name: 'okhttp', version: project.okhttp_version
+
 }
 
 tasks.test {

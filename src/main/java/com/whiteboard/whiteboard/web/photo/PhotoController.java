@@ -1,4 +1,4 @@
-package com.whiteboard.whiteboard.web.user;
+package com.whiteboard.whiteboard.web.photo;
 
 import com.whiteboard.whiteboard.config.random.GenerateRandom;
 import com.whiteboard.whiteboard.config.random.json.JsonTransducer;
